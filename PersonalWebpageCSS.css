@@ -99,7 +99,7 @@ body{
   display: grid;
   padding: 1ch;
   margin: 0%;
-  grid-template-columns: repeat(auto-fit, minmax(800px, 1fr));  /*minmax(auto 1fr) repeat(4, 1fr) minmax(auto 1fr)*/
+  grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));  /*minmax(auto 1fr) repeat(4, 1fr) minmax(auto 1fr)*/
   grid-template-rows: auto;
 }
 .container a:link { color: #ea8a14; }       /* https://stackoverflow.com/questions/12021045/how-can-i-define-link-colours-for-a-div */
