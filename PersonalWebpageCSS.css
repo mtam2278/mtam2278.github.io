@@ -12,16 +12,16 @@ h3{
 h4{
   text-align: center ;
   margin-top: 2%;
-
 }
+
 header{
   text-align: center;
   color: rgb(236, 240, 244);
   margin: 0%;
   padding: 0%;
   background-color: rgb(48, 119, 119);
-
-  #title{
+}
+#title{
     margin: auto;
     width: 50%;
     text-align: center;
@@ -31,8 +31,6 @@ header{
     display: block;
     margin: 0%;
   }
-}
-
 p{
   color:black;
   font-weight: 600;
@@ -114,18 +112,13 @@ body{
   padding-top: 5%;
   padding-bottom: 5%;
   padding-right: 10%;
-
   font-size:larger;
-
-  
+  background-color: rgb(8, 48, 97);
+}
   #profilepic{
     border-radius: 50%;    /* taken from https://github.com/Maclinz/cv-youtube-tutorial/blob/master/styles.css */
     
   }
-
-  background-color: rgb(8, 48, 97);
-}
-
 .work {
   text-align: left;
   background-color: rgb(140, 170, 188);
