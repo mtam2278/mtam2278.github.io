@@ -79,10 +79,6 @@ li a:hover {
   margin:0;
   padding: 0;
   overflow: hidden;
-  ul li::before {                        /*  change bullet color https://www.w3schools.com/howto/howto_css_bullet_color.asp */
-    content: none;
-    
-  }  
 }
 .navtext a:link { color: #ea8a14; }       /* https://stackoverflow.com/questions/12021045/how-can-i-define-link-colours-for-a-div */
 .navtext a:visited { color: #55dbf6; }
@@ -126,26 +122,23 @@ body{
     border-radius: 50%;    /* taken from https://github.com/Maclinz/cv-youtube-tutorial/blob/master/styles.css */
     
   }
-  /* grid-area: 1/1/11/1 ; */
+
   background-color: rgb(8, 48, 97);
 }
 
 .work {
-  /* grid-area: 2/2/11/3; */
   text-align: left;
   background-color: rgb(140, 170, 188);
 }
 
 .education {
-  /* grid-area: 2/3/11/4; */
   text-align:left;
   background-color: rgb(140, 170, 188);
   font-size:larger ;
-  #skilltext{ 
+}
+#skilltext{ 
     text-align: center;
   }
-}
-
 
 .links {
   color: aliceblue;
