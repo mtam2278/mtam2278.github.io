@@ -1,8 +1,19 @@
 *{
   box-sizing: border-box;
   font-family: sans-serif;
+
 }
 
+
+h3{
+  text-align: center;
+}
+
+h4{
+  text-align: center ;
+  margin-top: 2%;
+
+}
 header{
   text-align: center;
   color: rgb(236, 240, 244);
@@ -23,7 +34,9 @@ header{
 }
 
 p{
-  color:black
+  color:black;
+  font-weight: 600;
+  font-size: large;
 }
 
 ul{
@@ -32,7 +45,7 @@ ul{
 }
 
 
-ul li::before {
+ul li::before {                        /*  change bullet color https://www.w3schools.com/howto/howto_css_bullet_color.asp */
   content: "\2022";
   color: rgb(29, 107, 216);
   font-weight:bolder;
@@ -41,10 +54,12 @@ ul li::before {
   margin-left: -1em;
 }
 .navbar {                   /* inspiration from https://codepen.io/angeladelise/pen/QWbPZrb*/
-  background-color: rgb(55, 110, 110);
+  background-color: rgb(29, 107, 216);
   padding: 0%;
+  content:none;
   color:rgb(248, 248, 248)
 }
+
 a:link {                    /* from w3 schools https://www.w3schools.com/css/css_link.asp*/
   text-decoration: none
 }
@@ -64,36 +79,39 @@ li a:hover {
   margin:0;
   padding: 0;
   overflow: hidden;
-  list-style: none;
-
-
+  ul li::before {                        /*  change bullet color https://www.w3schools.com/howto/howto_css_bullet_color.asp */
+    content: none;
+    
+  }  
 }
+.navtext a:link { color: #ea8a14; }       /* https://stackoverflow.com/questions/12021045/how-can-i-define-link-colours-for-a-div */
+.navtext a:visited { color: #55dbf6; }
+.navtext a:hover { color: #ea8a14; }
+.navtext2 a:active { color: #ea8a14; }
+
 hr{
-  border: 5px solid green;
+  border: 5px solid rgb(79, 135, 191);
   border-radius: 5px;
 }
 
-h3{
-  text-align: center;
-}
 
-h4{
-  text-align: center ;
-  margin-top: 2%;
-}
 body{
   background-color: rgb(255, 255, 255);
   margin: auto;
   padding: 1%;
 }
 
-.container{
+.container{               /* https://github.com/RamziBach/Learn-CSS-Grid---A-13-Minute-Deep-Dive/blob/main/index.html */
   display: grid;
   padding: 1ch;
   margin: 0%;
-  grid-template-columns: repeat(auto-fit, minmax(1100px, 3fr));  /*minmax(auto 1fr) repeat(4, 1fr) minmax(auto 1fr)*/
-  grid-template-rows: (repeat(12));
+  grid-template-columns: repeat(auto-fit, minmax(1000px, 1fr));  /*minmax(auto 1fr) repeat(4, 1fr) minmax(auto 1fr)*/
+  grid-template-rows: auto;
 }
+.container a:link { color: #ea8a14; }       /* https://stackoverflow.com/questions/12021045/how-can-i-define-link-colours-for-a-div */
+.container a:visited { color: #70DB93; }
+.container a:hover { color: #ea8a14; }
+.container a:active { color: #ea8a14; }
 
 .sidebar{
   padding-left: 10%;
@@ -129,9 +147,11 @@ body{
 }
 
 
-.item-5 {
+.links {
   color: aliceblue;
   /* grid-area: 1/4/11/5; */
+  font-size: larger;
+  font-weight: bold;
   background-color: rgb(8, 48, 97);
   text-align: center;
 }
@@ -151,6 +171,39 @@ body{
 #gridbreak{
   border: 1px solid rgb(241, 224, 224);
 }
+
+.container2{
+  display: grid;
+  padding: 1ch;
+  margin: 0%;
+  grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));  /*minmax(auto 1fr) repeat(4, 1fr) minmax(auto 1fr)*/
+  grid-template-rows: auto;
+}
+
+.pic3{
+  place-items: center;
+  background-color: rgb(80, 114, 155);
+
+
+ } 
+
+.pic4{
+  place-items: center;
+  background-color: rgb(80, 114, 155);
+
+}
+.pic5{
+  place-items: center;
+  background-color: rgb(80, 114, 155);
+
+}
+
+
+.container2 a:link { color: #ea8a14; }       /* https://stackoverflow.com/questions/12021045/how-can-i-define-link-colours-for-a-div */
+.container2 a:visited { color: #70DB93; }
+.container2 a:hover { color: #ea8a14; }
+.container2 a:active { color: #ea8a14; }
+
 
 
 
