@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-    <title>Esri Leaflet Tutorials: Display a map</title>
+    <title>Esri Leaflet Tutorials: Change Basemap</title>
 
     <!-- Load Leaflet from CDN -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
@@ -46,11 +46,31 @@
 
         const apiKey = "AAPK7ea8e38f6b4b4f969ab170c41c01634akao_m4e5gL3AyABug_bvD9dN7kbXw7BSISXg4Y558XYUVj59ej6DtByYM0Cms4Tz";
 
-        const basemapEnum = "ArcGIS:Imagery";
+        function getBasemap(style) {
+        return L.esri.Vector.vectorBasemapLayer(style, {
+          apikey: apiKey
+        })
+      }
 
-        L.esri.Vector.vectorBasemapLayer(basemapEnum, {
-        apiKey: apiKey
-      }).addTo(map);
+        const basemapLayers = {
+
+        "ArcGIS:Streets": getBasemap("ArcGIS:Streets").addTo(map),
+
+        "ArcGIS:Navigation": getBasemap("ArcGIS:Navigation"),
+        "ArcGIS:Topographic": getBasemap("ArcGIS:Topographic"),
+        "ArcGIS:LightGray": getBasemap("ArcGIS:LightGray"),
+        "ArcGIS:DarkGray": getBasemap("ArcGIS:DarkGray"),
+        "ArcGIS:StreetsRelief": getBasemap("ArcGIS:StreetsRelief"),
+        "ArcGIS:Imagery": getBasemap("ArcGIS:Imagery"),
+        "ArcGIS:ChartedTerritory": getBasemap("ArcGIS:ChartedTerritory"),
+        "ArcGIS:ColoredPencil": getBasemap("ArcGIS:ColoredPencil"),
+        "ArcGIS:Nova": getBasemap("ArcGIS:Nova"),
+        "ArcGIS:Midcentury": getBasemap("ArcGIS:Midcentury"),
+        "OSM:Standard": getBasemap("OSM:Standard"),
+        "OSM:Streets": getBasemap("OSM:Streets")
+      };
+        L.control.layers(basemapLayers, null, { collapsed:false }).addTo(map);
+
   
       </script>
 
