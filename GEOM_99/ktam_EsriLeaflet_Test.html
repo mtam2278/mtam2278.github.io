@@ -42,6 +42,15 @@
         })
 
         map.setView([34.02, -118.805], 13);
+
+
+        const apiKey = "AAPK7ea8e38f6b4b4f969ab170c41c01634akao_m4e5gL3AyABug_bvD9dN7kbXw7BSISXg4Y558XYUVj59ej6DtByYM0Cms4Tz";
+
+        const basemapEnum = "arcgis/streets";
+
+        L.esri.Vector.vectorBasemapLayer(basemapEnum, {
+        apiKey: apiKey
+      }).addTo(map);
   
       </script>
 
