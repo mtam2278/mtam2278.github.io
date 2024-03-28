@@ -57,14 +57,9 @@ make it work  -->
         onAdd: function (map) {
           const whereClauses = [
             "Choose a WHERE clause...",
-            "UseType = 'Residential'",
-            "UseType = 'Government'",
-            "UseType = 'Irrigated Farm'",
-            "TaxRateArea = 10853",
-            "TaxRateArea = 10860",
-            "TaxRateArea = 08637",
-            "Roll_LandValue > 1000000",
-            "Roll_LandValue < 1000000"
+            "RES_TYPE = 'Hamlet'",
+            "RES_TYPE = 'Urban'",
+            
           ];
 
           const select = L.DomUtil.create("select", "");
@@ -96,7 +91,7 @@ make it work  -->
 
       const parcels = L.esri
         .featureLayer({
-          url: "https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/LA_County_Parcels/FeatureServer/0",
+          url: "https://gis.clarington.net/arcgis/rest/services/Community/Property_Search_Map_Public_v3/MapServer/5",
           simplifyFactor: 0.5,
           precision: 4,
 
@@ -113,7 +108,7 @@ make it work  -->
       });
 
       parcels.bindPopup(function (layer) {
-          return L.Util.template("<b>Parcel {APN}</b>" + "Type: {UseType} <br>" + "Tax Rate City: {TaxRateCity}", layer.feature.properties);
+          return L.Util.template("<b>Parcel {APN}</b>" + "Type: {RES_TYPE} <br>" + "Tax Rate City: {TaxRateCity}", layer.feature.properties);
       });
 
     </script>
