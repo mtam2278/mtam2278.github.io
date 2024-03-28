@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-    <title>Esri Leaflet</title>
+    <title>Esri Leaflet Query Tutorial</title>
 
     <!-- Load Leaflet from CDN -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
@@ -53,6 +53,38 @@
       L.esri.Vector.vectorBasemapLayer(basemapEnum, {
         apiKey: apiKey
       }).addTo(map);
+
+      var parcels = L.esri
+        .featureLayer({
+          url: "https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/LA_County_Parcels/FeatureServer/0",
+          simplifyFactor: 0.5,
+          precision: 4,
+
+          where: "1 = 0" // Hide the feature layer until queried
+
+      })
+      .addTo(map);
+
+      map.pm.addControls({
+        position:'topleft',
+        // Customize the visible tools
+        editControls:false,
+        drawRectangle:false,
+        drawCircle:false,
+        drawCircleMarker:false,
+        drawText:false
+      });
+
+
+      map.pm.setGlobalOptions({
+        pathOptions: {
+          weight: 2,
+          color: "#4d4d4d",
+          fillColor: "#808080",
+          fillOpacity: 0.2,
+          dashArray:[4, 4]}
+      });
+
 
     </script>
 
