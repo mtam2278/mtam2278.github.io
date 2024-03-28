@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Esri Leaflet</title>
+
+    <!-- Load Leaflet from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@3.0.10/dist/esri-leaflet.js"></script>
+    <script src="https://unpkg.com/esri-leaflet-vector@4.2.3/dist/esri-leaflet-vector.js"></script>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        color: #323232;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="map"></div>
+
+    <script>
+
+      const apiKey = "AAPK7ea8e38f6b4b4f969ab170c41c01634akao_m4e5gL3AyABug_bvD9dN7kbXw7BSISXg4Y558XYUVj59ej6DtByYM0Cms4Tz";
+      const basemapEnum = "ArcGIS:Streets";
+
+      const map = L.map("map", {
+        minZoom: 2
+      }).setView([34.02, -118.805], 13);
+
+      L.esri.Vector.vectorBasemapLayer(basemapEnum, {
+        apiKey: apiKey
+      }).addTo(map);
+
+
+
+      L.Control.QueryControl = L.Control.extend({
+        onAdd: function (map) {
+          const whereClauses = [
+            "Choose a WHERE clause...",
+            "UseType = 'Residential'",
+            "UseType = 'Government'",
+            "UseType = 'Irrigated Farm'",
+            "TaxRateArea = 10853",
+            "TaxRateArea = 10860",
+            "TaxRateArea = 08637",
+            "Roll_LandValue > 1000000",
+            "Roll_LandValue < 1000000"
+          ];
+
+          const select = L.DomUtil.create("select", "");
+          select.setAttribute("id", "whereClauseSelect");
+          select.setAttribute("style", "font-size: 16px;padding:4px 8px;");
+          whereClauses.forEach(function (whereClause) {
+            let option = L.DomUtil.create("option");
+            option.innerHTML = whereClause;
+            select.appendChild(option);
+          });
+          return select;
+
+        },
+
+        onRemove: function (map) {
+          // Nothing to do here
+        }
+      });
+
+      L.control.queryControl = function (opts) {
+        return new L.Control.QueryControl(opts);
+      };
+
+      L.control
+        .queryControl({
+          position: "topright"
+        })
+        .addTo(map);
+
+      const parcels = L.esri
+        .featureLayer({
+          url: "https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/LA_County_Parcels/FeatureServer/0",
+          simplifyFactor: 0.5,
+          precision: 4,
+
+          where: "1 = 0"
+
+        })
+        .addTo(map);
+
+      const select = document.getElementById("whereClauseSelect");
+      select.addEventListener("change", () => {
+        if (select.value !== "") {
+          parcels.setWhere(select.value);
+        }
+      });
+
+      parcels.bindPopup(function (layer) {
+          return L.Util.template("<b>Parcel {APN}</b>" + "Type: {UseType} <br>" + "Tax Rate City: {TaxRateCity}", layer.feature.properties);
+      });
+
+    </script>
+
+  </body>
