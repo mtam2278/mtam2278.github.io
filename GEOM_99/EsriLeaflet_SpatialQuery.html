@@ -85,6 +85,37 @@
           dashArray:[4, 4]}
       });
 
+      var previousLayer;
+      
+      // Add an event handler for the pm:create event. Format its output to access the new layer object.
+      map.on("pm:create", ({shape,layer}) => {
+
+        if (previousLayer) {
+          previousLayer.remove();
+        }
+        previousLayer = layer;
+
+
+        var feature = layer.toGeoJSON();
+        parcels
+          .query()
+          .intersects(feature.geometry)
+          .limit(2000)
+
+          .ids(function (error, queryResult) {
+            parcels.setWhere("OBJECTID IN (" + queryResult.join(",") + ")");
+          });
+
+      });
+
+
+      parcels.bindPopup(function (layer) {
+        return L.Util.template("<b>Parcel {APN}</b>" + "Type: {UseType} <br>" + "Tax Rate City: {TaxRateCity}", layer.feature.properties);
+      });
+
+
+      
+
 
     </script>
 
