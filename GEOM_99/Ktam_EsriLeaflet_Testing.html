@@ -17,6 +17,12 @@ make it work  -->
     <script src="https://unpkg.com/esri-leaflet@3.0.10/dist/esri-leaflet.js"></script>
     <script src="https://unpkg.com/esri-leaflet-vector@4.2.3/dist/esri-leaflet-vector.js"></script>
 
+
+    <!-- Load Leaflet Geoman from CDN which allows for drawing tools to be imported into the map--> 
+    <link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css" />
+    <script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js"></script>
+
+
     <style>
       body {
         margin: 0;
@@ -95,10 +101,50 @@ make it work  -->
           simplifyFactor: 0.5,
           precision: 4,
 
-          where: "1 = 0"
+          where: "1 = 0" // Hide the feature layer until queried 
 
         })
         .addTo(map);
+
+        map.pm.addControls({     //creates the Geoman toolbar
+        position:'topleft',
+        // Customize the visible tools
+        editControls:false,
+        drawRectangle:false,
+        drawCircle:true,
+        drawCircleMarker:false,
+        drawText:false
+      });
+
+      map.pm.setGlobalOptions({    //toolbar settings 
+        pathOptions: {
+          weight: 2,
+          color: "#4d4d4d",
+          fillColor: "#808080",
+          fillOpacity: 0.2,
+          dashArray:[4, 4]}
+      });
+
+      var previousLayer;
+
+      map.on("pm:create", ({shape,layer}) => {
+
+        if (previousLayer) {
+          previousLayer.remove();
+        }
+        previousLayer = layer;
+
+        var feature = layer.toGeoJSON();     // Convert the sketched feature into GeoJSON to access its geometry. 
+        parcels                             // Format is featurelayer.query in this case parcels is the feature layer // Create a query on the parcels layer that returns all parcels intersecting the sketched geometry.
+          .query()
+          .intersects(feature.geometry)
+          .limit(2000)
+
+          .ids(function (error, queryResult) {
+            parcels.setWhere("OBJECTID IN (" + queryResult.join(",") + ")");
+          });
+
+      });
 
       const select = document.getElementById("whereClauseSelect");
       select.addEventListener("change", () => {
@@ -108,7 +154,7 @@ make it work  -->
       });
 
       parcels.bindPopup(function (layer) {
-          return L.Util.template("<b>Parcel {APN}</b>" + "Type: {RES_TYPE} <br>" + "Tax Rate City: {TaxRateCity}", layer.feature.properties);
+          return L.Util.template("<b>Name: {NAME}</b>" + "<br>Type: {RES_TYPE} </br>" , layer.feature.properties);
       });
 
     </script>
